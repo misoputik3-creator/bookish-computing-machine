@@ -1,0 +1,1410 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Samariel Studio — Reformer Pilates</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #faf7f2;
+  --beige: #e8ddd0;
+  --sand: #d4c4b0;
+  --warm-brown: #8b7355;
+  --dark-brown: #3d2f1e;
+  --soft-white: #fffefb;
+  --text: #2c2018;
+  --text-light: #7a6a58;
+  --accent: #c4a882;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Jost', sans-serif;
+  background: var(--cream);
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+/* ─── NAVBAR ─── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 1.5rem 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.4s ease;
+  background: transparent;
+}
+
+nav.scrolled {
+  background: rgba(250,247,242,0.96);
+  backdrop-filter: blur(12px);
+  padding: 1rem 4rem;
+  box-shadow: 0 1px 30px rgba(61,47,30,0.06);
+}
+
+.logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  color: var(--dark-brown);
+  text-decoration: none;
+}
+
+.logo span { font-style: italic; color: var(--warm-brown); }
+
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 300;
+  transition: color 0.3s;
+}
+
+.nav-links a:hover { color: var(--warm-brown); }
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.lang-toggle {
+  font-size: 0.68rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  cursor: pointer;
+  background: none;
+  border: 1px solid var(--sand);
+  padding: 0.35rem 0.8rem;
+  color: var(--text-light);
+  transition: all 0.3s;
+  font-family: 'Jost', sans-serif;
+}
+
+.lang-toggle:hover {
+  background: var(--dark-brown);
+  color: var(--cream);
+  border-color: var(--dark-brown);
+}
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 1px;
+  background: var(--dark-brown);
+  transition: all 0.3s;
+}
+
+/* ─── HERO ─── */
+.hero {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(165deg, var(--soft-white) 0%, var(--cream) 40%, var(--beige) 100%);
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c4a882' fill-opacity='0.06'%3E%3Ccircle cx='30' cy='30' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+.hero-deco {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  border: 1px solid rgba(196,168,130,0.15);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: pulse-ring 6s ease-in-out infinite;
+}
+
+.hero-deco:nth-child(2) {
+  width: 800px;
+  height: 800px;
+  border-color: rgba(196,168,130,0.08);
+  animation-delay: 1.5s;
+}
+
+.hero-deco:nth-child(3) {
+  width: 1000px;
+  height: 1000px;
+  border-color: rgba(196,168,130,0.04);
+  animation-delay: 3s;
+}
+
+@keyframes pulse-ring {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+  50% { transform: translate(-50%, -50%) scale(1.03); opacity: 0.7; }
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  opacity: 0;
+  animation: fadeUp 1.2s ease forwards 0.3s;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-label {
+  font-size: 0.68rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--warm-brown);
+  margin-bottom: 1.5rem;
+  font-weight: 400;
+}
+
+.hero h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(3rem, 7vw, 6rem);
+  font-weight: 300;
+  line-height: 1.1;
+  color: var(--dark-brown);
+  margin-bottom: 1.2rem;
+  letter-spacing: -0.01em;
+}
+
+.hero h1 em {
+  font-style: italic;
+  color: var(--warm-brown);
+}
+
+.hero-sub {
+  font-size: 0.85rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-light);
+  margin-bottom: 3rem;
+  font-weight: 300;
+}
+
+.btn-primary {
+  display: inline-block;
+  padding: 1rem 2.8rem;
+  background: var(--dark-brown);
+  color: var(--cream);
+  text-decoration: none;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 400;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--warm-brown);
+  transform: translateX(-100%);
+  transition: transform 0.4s ease;
+}
+
+.btn-primary:hover::before { transform: translateX(0); }
+.btn-primary span { position: relative; z-index: 1; }
+
+.scroll-indicator {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: 0;
+  animation: fadeIn 1s ease forwards 1.5s;
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+.scroll-indicator span {
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-light);
+}
+
+.scroll-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, var(--sand), transparent);
+  animation: scroll-anim 2s ease-in-out infinite;
+}
+
+@keyframes scroll-anim {
+  0% { transform: scaleY(0); transform-origin: top; }
+  50% { transform: scaleY(1); transform-origin: top; }
+  51% { transform: scaleY(1); transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+
+/* ─── SECTIONS COMMON ─── */
+section { padding: 7rem 4rem; }
+
+.section-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--warm-brown);
+  margin-bottom: 1rem;
+  font-weight: 400;
+}
+
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 300;
+  color: var(--dark-brown);
+  line-height: 1.2;
+}
+
+.section-title em { font-style: italic; color: var(--warm-brown); }
+
+.divider {
+  width: 50px;
+  height: 1px;
+  background: var(--sand);
+  margin: 2rem 0;
+}
+
+/* ─── BENEFITS ─── */
+.benefits {
+  background: var(--soft-white);
+  text-align: center;
+}
+
+.benefits-header {
+  max-width: 600px;
+  margin: 0 auto 5rem;
+}
+
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.benefit-card {
+  padding: 3rem 2rem;
+  background: var(--cream);
+  border: 1px solid var(--beige);
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.benefit-card::before {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--warm-brown);
+  transform: scaleX(0);
+  transition: transform 0.4s ease;
+}
+
+.benefit-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(61,47,30,0.08); }
+.benefit-card:hover::before { transform: scaleX(1); }
+
+.benefit-icon {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  display: block;
+}
+
+.benefit-card h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: var(--dark-brown);
+  margin-bottom: 1rem;
+}
+
+.benefit-card p {
+  font-size: 0.82rem;
+  line-height: 1.8;
+  color: var(--text-light);
+  font-weight: 300;
+}
+
+/* ─── ABOUT ─── */
+.about {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8rem;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.about-visual {
+  position: relative;
+  height: 550px;
+}
+
+.about-rect {
+  position: absolute;
+  border-radius: 2px;
+}
+
+.about-rect-1 {
+  inset: 0;
+  background: linear-gradient(135deg, var(--beige), var(--sand));
+}
+
+.about-rect-2 {
+  width: 75%;
+  height: 75%;
+  bottom: -30px;
+  right: -30px;
+  background: var(--warm-brown);
+  opacity: 0.12;
+  z-index: -1;
+}
+
+.about-text-inner { font-size: 0.85rem; line-height: 1.9; color: var(--text-light); font-weight: 300; margin-top: 1.5rem; }
+
+.about-quote {
+  margin-top: 2.5rem;
+  padding-left: 1.5rem;
+  border-left: 2px solid var(--sand);
+}
+
+.about-quote blockquote {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem;
+  font-style: italic;
+  color: var(--warm-brown);
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+.about-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1rem;
+  color: var(--text-light);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-align: center;
+}
+
+.about-placeholder .placeholder-icon {
+  font-size: 3rem;
+  opacity: 0.4;
+}
+
+/* ─── SERVICES ─── */
+.services {
+  background: var(--dark-brown);
+  color: var(--cream);
+  text-align: center;
+}
+
+.services .section-label { color: var(--sand); }
+.services .section-title { color: var(--cream); }
+.services .divider { background: var(--warm-brown); margin: 2rem auto; }
+
+.services-intro {
+  max-width: 650px;
+  margin: 0 auto 5rem;
+  font-size: 0.85rem;
+  line-height: 1.9;
+  color: rgba(250,247,242,0.65);
+  font-weight: 300;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5px;
+  max-width: 1100px;
+  margin: 0 auto;
+  background: rgba(255,255,255,0.05);
+}
+
+.service-item {
+  padding: 3.5rem 2.5rem;
+  background: var(--dark-brown);
+  transition: background 0.3s;
+}
+
+.service-item:hover { background: rgba(255,255,255,0.04); }
+
+.service-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3rem;
+  color: rgba(196,168,130,0.2);
+  font-weight: 300;
+  line-height: 1;
+  margin-bottom: 1.5rem;
+}
+
+.service-item h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: var(--cream);
+  margin-bottom: 1rem;
+}
+
+.service-item p {
+  font-size: 0.8rem;
+  line-height: 1.9;
+  color: rgba(250,247,242,0.55);
+  font-weight: 300;
+}
+
+/* ─── PRICING ─── */
+.pricing {
+  background: var(--cream);
+  text-align: center;
+}
+
+.pricing-header { max-width: 500px; margin: 0 auto 4rem; }
+.pricing .divider { margin: 1.5rem auto; }
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.price-card {
+  background: var(--soft-white);
+  border: 1px solid var(--beige);
+  padding: 3rem 2rem;
+  position: relative;
+  transition: all 0.4s;
+}
+
+.price-card.featured {
+  background: var(--dark-brown);
+  border-color: var(--dark-brown);
+}
+
+.price-card:hover:not(.featured) {
+  border-color: var(--warm-brown);
+  transform: translateY(-4px);
+}
+
+.price-badge {
+  position: absolute;
+  top: -1px; left: 50%;
+  transform: translateX(-50%);
+  background: var(--warm-brown);
+  color: var(--cream);
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 0.3rem 1rem;
+}
+
+.price-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-light);
+  margin-bottom: 1.5rem;
+  font-weight: 300;
+}
+
+.price-card.featured .price-label { color: rgba(250,247,242,0.5); }
+
+.price-amount {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3rem;
+  font-weight: 300;
+  color: var(--dark-brown);
+  line-height: 1;
+  margin-bottom: 0.3rem;
+}
+
+.price-card.featured .price-amount { color: var(--cream); }
+
+.price-currency {
+  font-size: 1.2rem;
+  vertical-align: super;
+  font-family: 'Cormorant Garamond', serif;
+}
+
+.price-desc {
+  font-size: 0.75rem;
+  color: var(--text-light);
+  margin-top: 1rem;
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+.price-card.featured .price-desc { color: rgba(250,247,242,0.5); }
+
+/* ─── BOOKING ─── */
+.booking {
+  background: linear-gradient(135deg, var(--beige) 0%, var(--sand) 100%);
+  text-align: center;
+  padding: 7rem 2rem;
+}
+
+.booking-inner {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.booking p {
+  font-size: 0.85rem;
+  line-height: 1.9;
+  color: var(--text-light);
+  font-weight: 300;
+  margin-top: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.btn-outline {
+  display: inline-block;
+  padding: 1rem 3rem;
+  border: 1px solid var(--dark-brown);
+  color: var(--dark-brown);
+  text-decoration: none;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 400;
+  transition: all 0.4s;
+}
+
+.btn-outline:hover {
+  background: var(--dark-brown);
+  color: var(--cream);
+}
+
+.booking-note {
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  color: var(--text-light);
+  margin-top: 1.5rem;
+  font-weight: 300;
+  opacity: 0.7;
+}
+
+/* ─── REVIEWS ─── */
+.reviews {
+  background: var(--soft-white);
+  text-align: center;
+  overflow: hidden;
+}
+
+.reviews-header { max-width: 500px; margin: 0 auto 4rem; }
+.reviews .divider { margin: 1.5rem auto; }
+
+.slider-wrapper { overflow: hidden; max-width: 1100px; margin: 0 auto; }
+
+.slider-track {
+  display: flex;
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.review-card {
+  min-width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  padding: 0 1rem;
+}
+
+.review-item {
+  background: var(--cream);
+  border: 1px solid var(--beige);
+  padding: 2.5rem;
+  text-align: left;
+}
+
+.stars {
+  color: var(--warm-brown);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  margin-bottom: 1.2rem;
+}
+
+.review-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--dark-brown);
+  line-height: 1.7;
+  font-weight: 300;
+  margin-bottom: 1.5rem;
+}
+
+.review-author {
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-light);
+  font-weight: 400;
+}
+
+.slider-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 3rem;
+}
+
+.slider-btn {
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--sand);
+  background: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+  font-size: 1rem;
+  color: var(--text-light);
+}
+
+.slider-btn:hover {
+  background: var(--dark-brown);
+  border-color: var(--dark-brown);
+  color: var(--cream);
+}
+
+.slider-dots {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.dot {
+  width: 5px;
+  height: 5px;
+  background: var(--sand);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.dot.active {
+  background: var(--warm-brown);
+  width: 20px;
+  border-radius: 3px;
+}
+
+/* ─── INSTAGRAM ─── */
+.instagram {
+  background: var(--cream);
+  text-align: center;
+}
+
+.instagram-header { max-width: 500px; margin: 0 auto 3rem; }
+.instagram .divider { margin: 1.5rem auto; }
+
+.ig-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 4px;
+  max-width: 900px;
+  margin: 0 auto 3rem;
+}
+
+.ig-cell {
+  aspect-ratio: 1;
+  background: var(--beige);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.ig-cell::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--dark-brown);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.ig-cell::after {
+  content: '♡';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--cream);
+  font-size: 1.2rem;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.ig-cell:hover::before { opacity: 0.5; }
+.ig-cell:hover::after { opacity: 1; }
+
+.ig-placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--beige), var(--sand));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  opacity: 0.4;
+}
+
+.ig-link {
+  display: inline-block;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--warm-brown);
+  text-decoration: none;
+  border-bottom: 1px solid var(--sand);
+  padding-bottom: 3px;
+  transition: all 0.3s;
+}
+
+.ig-link:hover {
+  color: var(--dark-brown);
+  border-color: var(--dark-brown);
+}
+
+/* ─── CONTACT ─── */
+.contact {
+  background: var(--dark-brown);
+  color: var(--cream);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  align-items: start;
+}
+
+.contact .section-label { color: var(--sand); }
+.contact .section-title { color: var(--cream); }
+.contact .divider { background: rgba(255,255,255,0.1); }
+
+.contact-items {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  margin-top: 2rem;
+}
+
+.contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+}
+
+.contact-icon {
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(255,255,255,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+  margin-top: 0.2rem;
+}
+
+.contact-item-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--sand);
+  margin-bottom: 0.4rem;
+  font-weight: 300;
+}
+
+.contact-item-value {
+  font-size: 0.85rem;
+  color: rgba(250,247,242,0.75);
+  font-weight: 300;
+  line-height: 1.6;
+}
+
+.contact-item-value a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.contact-item-value a:hover { color: var(--accent); }
+
+.map-placeholder {
+  height: 350px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1rem;
+  color: rgba(250,247,242,0.3);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  margin-top: 2rem;
+}
+
+/* ─── FOOTER ─── */
+footer {
+  background: #1a0f08;
+  padding: 3rem 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.footer-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  color: rgba(250,247,242,0.5);
+  font-weight: 300;
+  letter-spacing: 0.1em;
+}
+
+.footer-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+
+.footer-links a {
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(250,247,242,0.35);
+  text-decoration: none;
+  font-weight: 300;
+  transition: color 0.3s;
+}
+
+.footer-links a:hover { color: var(--sand); }
+
+.footer-copy {
+  font-size: 0.65rem;
+  color: rgba(250,247,242,0.25);
+  letter-spacing: 0.05em;
+  font-weight: 300;
+}
+
+/* ─── ANIMATIONS ─── */
+.reveal {
+  opacity: 0;
+  transform: translateY(25px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── MOBILE MENU ─── */
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  background: var(--cream);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 2.5rem;
+  transform: translateX(100%);
+  transition: transform 0.5s cubic-bezier(0.77, 0, 0.18, 1);
+}
+
+.mobile-menu.open { transform: translateX(0); }
+
+.mobile-menu a {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem;
+  color: var(--dark-brown);
+  text-decoration: none;
+  font-weight: 300;
+  letter-spacing: 0.05em;
+}
+
+.mobile-close {
+  position: absolute;
+  top: 1.5rem;
+  right: 2rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--dark-brown);
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 1024px) {
+  .benefits-grid { grid-template-columns: repeat(2, 1fr); }
+  .pricing-grid { grid-template-columns: repeat(2, 1fr); }
+  .services-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 768px) {
+  nav { padding: 1.2rem 1.5rem; }
+  nav.scrolled { padding: 0.8rem 1.5rem; }
+  .nav-links { display: none; }
+  .lang-toggle { display: none; }
+  .hamburger { display: flex; }
+
+  section { padding: 5rem 1.5rem; }
+
+  .hero h1 { font-size: 2.8rem; }
+
+  .about { grid-template-columns: 1fr; gap: 3rem; }
+  .about-visual { height: 300px; }
+
+  .contact { grid-template-columns: 1fr; gap: 3rem; }
+
+  .benefits-grid { grid-template-columns: 1fr; }
+  .services-grid { grid-template-columns: 1fr; }
+  .pricing-grid { grid-template-columns: 1fr; }
+
+  .review-card { grid-template-columns: 1fr; }
+
+  .ig-grid { grid-template-columns: repeat(3, 1fr); }
+
+  footer { flex-direction: column; text-align: center; padding: 2rem 1.5rem; }
+  .footer-links { flex-wrap: wrap; justify-content: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" onclick="closeMobile()">✕</button>
+  <a href="#domov" onclick="closeMobile()" data-sk="Domov" data-en="Home">Domov</a>
+  <a href="#o-nas" onclick="closeMobile()" data-sk="O nás" data-en="About">O nás</a>
+  <a href="#sluzby" onclick="closeMobile()" data-sk="Služby" data-en="Services">Služby</a>
+  <a href="#cennik" onclick="closeMobile()" data-sk="Cenník" data-en="Pricing">Cenník</a>
+  <a href="#recenzie" onclick="closeMobile()" data-sk="Recenzie" data-en="Reviews">Recenzie</a>
+  <a href="#booking" onclick="closeMobile()" data-sk="Booking" data-en="Booking">Booking</a>
+  <a href="#kontakt" onclick="closeMobile()" data-sk="Kontakt" data-en="Contact">Kontakt</a>
+</div>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <a href="#domov" class="logo">Samariel <span>Studio</span></a>
+  <ul class="nav-links">
+    <li><a href="#domov" data-sk="Domov" data-en="Home">Domov</a></li>
+    <li><a href="#o-nas" data-sk="O nás" data-en="About">O nás</a></li>
+    <li><a href="#sluzby" data-sk="Služby" data-en="Services">Služby</a></li>
+    <li><a href="#cennik" data-sk="Cenník" data-en="Pricing">Cenník</a></li>
+    <li><a href="#recenzie" data-sk="Recenzie" data-en="Reviews">Recenzie</a></li>
+    <li><a href="#booking" data-sk="Booking" data-en="Booking">Booking</a></li>
+    <li><a href="#kontakt" data-sk="Kontakt" data-en="Contact">Kontakt</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="lang-toggle" id="langToggle" onclick="toggleLang()">EN</button>
+    <button class="hamburger" onclick="openMobile()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="domov">
+  <div class="hero-deco"></div>
+  <div class="hero-deco"></div>
+  <div class="hero-deco"></div>
+  <div class="hero-content">
+    <p class="hero-label" data-sk="Veľké Úľany · Reformer Pilates Studio" data-en="Veľké Úľany · Reformer Pilates Studio">Veľké Úľany · Reformer Pilates Studio</p>
+    <h1 data-sk="Telo, ktoré<br><em>si zaslúžiš</em>" data-en="The body you<br><em>deserve</em>">Telo, ktoré<br><em>si zaslúžiš</em></h1>
+    <p class="hero-sub" data-sk="Reformer Pilates Studio" data-en="Reformer Pilates Studio">Reformer Pilates Studio</p>
+    <a href="https://booqme.sk/sk/rezervacia/samariel-reformer-studio" target="_blank" rel="noopener" class="btn-primary"><span data-sk="Rezervovať hodinu" data-en="Book a session">Rezervovať hodinu</span></a>
+  </div>
+  <div class="scroll-indicator">
+    <span data-sk="Scroll" data-en="Scroll">Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- BENEFITS -->
+<section class="benefits" id="benefity">
+  <div class="benefits-header reveal">
+    <p class="section-label" data-sk="Prečo si vybrať nás" data-en="Why choose us">Prečo si vybrať nás</p>
+    <h2 class="section-title" data-sk="Váš pohyb,<br><em>naša vášeň</em>" data-en="Your movement,<br><em>our passion</em>">Váš pohyb,<br><em>naša vášeň</em></h2>
+    <div class="divider"></div>
+  </div>
+  <div class="benefits-grid">
+    <div class="benefit-card reveal">
+      <span class="benefit-icon">◇</span>
+      <h3 data-sk="Individuálny prístup" data-en="Individual Approach">Individuálny prístup</h3>
+      <p data-sk="Každá hodina je navrhnutá priamo pre vás. Sledujeme váš pokrok a prispôsobujeme tréning vašim potrebám." data-en="Every session is designed just for you. We track your progress and tailor training to your needs.">Každá hodina je navrhnutá priamo pre vás. Sledujeme váš pokrok a prispôsobujeme tréning vašim potrebám.</p>
+    </div>
+    <div class="benefit-card reveal">
+      <span class="benefit-icon">◈</span>
+      <h3 data-sk="Viditeľné výsledky" data-en="Visible Results">Viditeľné výsledky</h3>
+      <p data-sk="Reformer pilates ponúka efektívne výsledky – silnejšie telo, lepšie držanie a vnútornú rovnováhu." data-en="Reformer pilates delivers effective results — a stronger body, better posture and inner balance.">Reformer pilates ponúka efektívne výsledky – silnejšie telo, lepšie držanie a vnútornú rovnováhu.</p>
+    </div>
+    <div class="benefit-card reveal">
+      <span class="benefit-icon">◎</span>
+      <h3 data-sk="Prémiové prostredie" data-en="Premium Space">Prémiové prostredie</h3>
+      <p data-sk="Naše štúdio je navrhnuté pre maximálny komfort a pocit luxusu. Každý detail je premyslený pre vás." data-en="Our studio is designed for maximum comfort and a feeling of luxury. Every detail is thought through for you.">Naše štúdio je navrhnuté pre maximálny komfort a pocit luxusu. Každý detail je premyslený pre vás.</p>
+    </div>
+    <div class="benefit-card reveal">
+      <span class="benefit-icon">✦</span>
+      <h3 data-sk="Certifikovaná kvalita" data-en="Certified Quality">Certifikovaná kvalita</h3>
+      <p data-sk="Naše inštruktorky sú certifikované a neustále sa vzdelávajú, aby vám priniesli to najlepšie." data-en="Our instructors are certified and continuously learning to bring you the very best.">Naše inštruktorky sú certifikované a neustále sa vzdelávajú, aby vám priniesli to najlepšie.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="o-nas" style="padding: 7rem 4rem;">
+  <div class="about">
+    <div class="about-visual reveal">
+      <div class="about-rect about-rect-1">
+        <div class="about-placeholder">
+          <span class="placeholder-icon">🌿</span>
+          <span data-sk="Fotografia štúdia" data-en="Studio photo">Fotografia štúdia</span>
+        </div>
+      </div>
+      <div class="about-rect about-rect-2"></div>
+    </div>
+    <div class="about-text reveal">
+      <p class="section-label" data-sk="Náš príbeh" data-en="Our Story">Náš príbeh</p>
+      <h2 class="section-title" data-sk="O <em>Samariel</em><br>Studio" data-en="About <em>Samariel</em><br>Studio">O <em>Samariel</em><br>Studio</h2>
+      <div class="divider"></div>
+      <p class="about-text-inner" data-sk="Samariel Studio vzniklo z lásky k pohybu a úprimnej túžby pomôcť každej žene nájsť harmóniu vo vlastnom tele. Veríme, že pravá krása vychádza zvnútra — zo sily, rovnováhy a sebavedomia." data-en="Samariel Studio was born from a love of movement and a sincere desire to help every woman find harmony in her own body. We believe true beauty comes from within — from strength, balance and confidence.">Samariel Studio vzniklo z lásky k pohybu a úprimnej túžby pomôcť každej žene nájsť harmóniu vo vlastnom tele. Veríme, že pravá krása vychádza zvnútra — zo sily, rovnováhy a sebavedomia.</p>
+      <p class="about-text-inner" data-sk="Reformer pilates nie je len cvičenie. Je to rituál starostlivosti o seba, ktorý mení nielen telo, ale aj myseľ. V Samariel Studio vás sprevádzame na tejto ceste s láskavosťou a odbornosťou." data-en="Reformer pilates is not just exercise. It is a self-care ritual that transforms not only the body, but also the mind. At Samariel Studio, we guide you on this journey with warmth and expertise.">Reformer pilates nie je len cvičenie. Je to rituál starostlivosti o seba, ktorý mení nielen telo, ale aj myseľ. V Samariel Studio vás sprevádzame na tejto ceste s láskavosťou a odbornosťou.</p>
+      <div class="about-quote">
+        <blockquote data-sk='"Pohyb je liek. Telo je chrám. Samariel je váš priestor."' data-en='"Movement is medicine. The body is a temple. Samariel is your space."'>"Pohyb je liek. Telo je chrám. Samariel je váš priestor."</blockquote>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="sluzby">
+  <div class="reveal">
+    <p class="section-label" data-sk="Čo ponúkame" data-en="What we offer">Čo ponúkame</p>
+    <h2 class="section-title" data-sk="Naše <em>služby</em>" data-en="Our <em>services</em>">Naše <em>služby</em></h2>
+    <div class="divider"></div>
+    <p class="services-intro" data-sk="Reformer pilates je metóda cvičenia využívajúca špeciálny stroj — reformer. Pracuje s odorom a gravitáciou na posilnenie hlbokých svalov, zlepšenie flexibility a koordinácie." data-en="Reformer pilates is a training method using a special machine — the reformer. It works with resistance and gravity to strengthen deep muscles, improve flexibility and coordination.">Reformer pilates je metóda cvičenia využívajúca špeciálny stroj — reformer. Pracuje s odorom a gravitáciou na posilnenie hlbokých svalov, zlepšenie flexibility a koordinácie.</p>
+  </div>
+  <div class="services-grid reveal">
+    <div class="service-item">
+      <div class="service-num">01</div>
+      <h3 data-sk="Pre koho je vhodný" data-en="Who is it for">Pre koho je vhodný</h3>
+      <p data-sk="Pre každú — bez ohľadu na vek alebo úroveň fitness. Vhodné pre začiatočníkov, ale aj pre pokročilých. Ideálne pre ženy po pôrode, so zraneniami či bolesťami chrbta." data-en="For everyone — regardless of age or fitness level. Suitable for beginners and advanced alike. Ideal for postpartum women, those with injuries or back pain.">Pre každú — bez ohľadu na vek alebo úroveň fitness. Vhodné pre začiatočníkov, ale aj pre pokročilých. Ideálne pre ženy po pôrode, so zraneniami či bolesťami chrbta.</p>
+    </div>
+    <div class="service-item">
+      <div class="service-num">02</div>
+      <h3 data-sk="Výhody cvičenia" data-en="Benefits of training">Výhody cvičenia</h3>
+      <p data-sk="Posilnenie core, lepšie držanie tela, redukcia bolesti chrbta, zlepšenie flexibility, tvarovanie tela a vnútorná rovnováha. Výsledky cítiť už po prvých hodinách." data-en="Core strengthening, improved posture, back pain reduction, increased flexibility, body sculpting and inner balance. Results are felt after the first few sessions.">Posilnenie core, lepšie držanie tela, redukcia bolesti chrbta, zlepšenie flexibility, tvarovanie tela a vnútorná rovnováha. Výsledky cítiť už po prvých hodinách.</p>
+    </div>
+    <div class="service-item">
+      <div class="service-num">03</div>
+      <h3 data-sk="Prístup a filozofia" data-en="Approach & philosophy">Prístup a filozofia</h3>
+      <p data-sk="Každá lekcia je vedená s plnou pozornosťou. Zameriavame sa na správnu techniku, dýchanie a prepojenie tela s mysľou. Pilates je životný štýl, nie len tréning." data-en="Each session is led with full attention. We focus on correct technique, breathing and the mind-body connection. Pilates is a lifestyle, not just a workout.">Každá lekcia je vedená s plnou pozornosťou. Zameriavame sa na správnu techniku, dýchanie a prepojenie tela s mysľou. Pilates je životný štýl, nie len tréning.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="cennik">
+  <div class="pricing-header reveal">
+    <p class="section-label" data-sk="Investícia do seba" data-en="Invest in yourself">Investícia do seba</p>
+    <h2 class="section-title" data-sk="<em>Cenník</em>" data-en="<em>Pricing</em>"><em>Cenník</em></h2>
+    <div class="divider"></div>
+  </div>
+  <div class="pricing-grid reveal">
+    <div class="price-card">
+      <p class="price-label" data-sk="Jednotlivá hodina" data-en="Single session">Jednotlivá hodina</p>
+      <div class="price-amount"><span class="price-currency">€</span>25</div>
+      <p class="price-desc" data-sk="50 minút · Individuálna lekcia" data-en="50 minutes · Individual session">50 minút · Individuálna lekcia</p>
+    </div>
+    <div class="price-card featured">
+      <span class="price-badge" data-sk="Populárne" data-en="Popular">Populárne</span>
+      <p class="price-label" data-sk="5 hodín" data-en="5 sessions">5 hodín</p>
+      <div class="price-amount" style="color:var(--cream)"><span class="price-currency">€</span>120</div>
+      <p class="price-desc" data-sk="Balíček · Úspora 5€" data-en="Bundle · Save €5">Balíček · Úspora 5€</p>
+    </div>
+    <div class="price-card">
+      <p class="price-label" data-sk="10 hodín" data-en="10 sessions">10 hodín</p>
+      <div class="price-amount"><span class="price-currency">€</span>230</div>
+      <p class="price-desc" data-sk="Balíček · Úspora 20€" data-en="Bundle · Save €20">Balíček · Úspora 20€</p>
+    </div>
+    <div class="price-card">
+      <p class="price-label" data-sk="Protišmykové ponožky" data-en="Non-slip socks">Protišmykové ponožky</p>
+      <div class="price-amount"><span class="price-currency">€</span>8<span style="font-size:1.5rem">.50</span></div>
+      <p class="price-desc" data-sk="Povinná výbava · Dostupné u nás" data-en="Required gear · Available at the studio">Povinná výbava · Dostupné u nás</p>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section class="booking" id="booking">
+  <div class="booking-inner reveal">
+    <p class="section-label" data-sk="Rezervácia" data-en="Reservation">Rezervácia</p>
+    <h2 class="section-title" data-sk="Rezervujte si<br><em>svoju hodinu</em>" data-en="Book your<br><em>session</em>">Rezervujte si<br><em>svoju hodinu</em></h2>
+    <div class="divider" style="margin: 1.5rem auto;"></div>
+    <p data-sk="Vaša cesta k silnejšiemu a krajšiemu telu začína jediným krokom. Rezervujte si hodinu ešte dnes a zažite rozdiel reformer pilates." data-en="Your journey to a stronger and more beautiful body starts with a single step. Book your session today and experience the difference of reformer pilates.">Vaša cesta k silnejšiemu a krajšiemu telu začína jediným krokom. Rezervujte si hodinu ešte dnes a zažite rozdiel reformer pilates.</p>
+    <a href="https://booqme.sk/sk/rezervacia/samariel-reformer-studio" target="_blank" rel="noopener" class="btn-primary" style="margin-right: 1rem;"><span data-sk="Rezervovať teraz" data-en="Book now">Rezervovať teraz</span></a>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews" id="recenzie">
+  <div class="reviews-header reveal">
+    <p class="section-label" data-sk="Hovoria naše klientky" data-en="Our clients say">Hovoria naše klientky</p>
+    <h2 class="section-title" data-sk="<em>Recenzie</em>" data-en="<em>Reviews</em>"><em>Recenzie</em></h2>
+    <div class="divider"></div>
+  </div>
+  <div class="slider-wrapper reveal">
+    <div class="slider-track" id="sliderTrack">
+      <div class="review-card">
+        <div class="review-item">
+          <div class="stars">★★★★★</div>
+          <p class="review-text" data-sk='"Samariel Studio zmenilo môj vzťah k vlastnému telu. Po troch mesiacoch cítim sa silnejšia, sebavedomejšia a v rovnováhe."' data-en='"Samariel Studio changed my relationship with my own body. After three months I feel stronger, more confident and balanced."'>"Samariel Studio zmenilo môj vzťah k vlastnému telu. Po troch mesiacoch cítim sa silnejšia, sebavedomejšia a v rovnováhe."</p>
+          <p class="review-author">Michaela K.</p>
+        </div>
+        <div class="review-item">
+          <div class="stars">★★★★★</div>
+          <p class="review-text" data-sk='"Profesionálny prístup, krásne prostredie a viditeľné výsledky. Odporúčam každej žene, ktorá hľadá niečo viac ako bežné cvičenie."' data-en='"Professional approach, beautiful space and visible results. I recommend it to every woman looking for something more than regular exercise."'>"Profesionálny prístup, krásne prostredie a viditeľné výsledky. Odporúčam každej žene, ktorá hľadá niečo viac ako bežné cvičenie."</p>
+          <p class="review-author">Lucia B.</p>
+        </div>
+        <div class="review-item">
+          <div class="stars">★★★★★</div>
+          <p class="review-text" data-sk='"Nikdy som neverila, že pilates môže byť takto intenzívne a zároveň relaxačné. Je to najlepšia investícia do mojho zdravia."' data-en='"I never believed pilates could be this intense and yet so relaxing. It is the best investment in my health."'>"Nikdy som neverila, že pilates môže byť takto intenzívne a zároveň relaxačné. Je to najlepšia investícia do mojho zdravia."</p>
+          <p class="review-author">Zuzana M.</p>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-item">
+          <div class="stars">★★★★★</div>
+          <p class="review-text" data-sk='"Po pôrode som hľadala spôsob, ako sa vrátiť k sebe. Samariel mi pomohlo znovu nájsť silu, tvar aj sebadôveru."' data-en='"After giving birth I was looking for a way back to myself. Samariel helped me rediscover strength, shape and confidence."'>"Po pôrode som hľadala spôsob, ako sa vrátiť k sebe. Samariel mi pomohlo znovu nájsť silu, tvar aj sebadôveru."</p>
+          <p class="review-author">Nina R.</p>
+        </div>
+        <div class="review-item">
+          <div class="stars">★★★★★</div>
+          <p class="review-text" data-sk='"Atmosféra štúdia je úžasná — tichá, elegantná a inšpirujúca. Každá hodina je pre mňa malý relax a veľký krok vpred."' data-en='"The studio atmosphere is wonderful — quiet, elegant and inspiring. Each session is my little escape and a big step forward."'>"Atmosféra štúdia je úžasná — tichá, elegantná a inšpirujúca. Každá hodina je pre mňa malý relax a veľký krok vpred."</p>
+          <p class="review-author">Petra H.</p>
+        </div>
+        <div class="review-item">
+          <div class="stars">★★★★★</div>
+          <p class="review-text" data-sk='"Bolesť chrbta, ktorá ma trápila roky, po mesaci cvičenia výrazne ustúpila. Ďakujem Samariel Studio za profesionalitu a starostlivosť."' data-en='"Back pain that troubled me for years significantly improved after one month of training. Thank you Samariel Studio for your professionalism and care."'>"Bolesť chrbta, ktorá ma trápila roky, po mesaci cvičenia výrazne ustúpila. Ďakujem Samariel Studio za profesionalitu a starostlivosť."</p>
+          <p class="review-author">Jana V.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slider-controls">
+    <button class="slider-btn" onclick="prevSlide()">←</button>
+    <div class="slider-dots">
+      <div class="dot active" onclick="goToSlide(0)"></div>
+      <div class="dot" onclick="goToSlide(1)"></div>
+    </div>
+    <button class="slider-btn" onclick="nextSlide()">→</button>
+  </div>
+</section>
+
+<!-- INSTAGRAM -->
+<section class="instagram">
+  <div class="instagram-header reveal">
+    <p class="section-label">Instagram</p>
+    <h2 class="section-title" data-sk="Sledujte nás<br><em>na Instagrame</em>" data-en="Follow us<br><em>on Instagram</em>">Sledujte nás<br><em>na Instagrame</em></h2>
+    <div class="divider"></div>
+  </div>
+  <div class="ig-grid reveal">
+    <div class="ig-cell"><div class="ig-placeholder">🌿</div></div>
+    <div class="ig-cell"><div class="ig-placeholder">◇</div></div>
+    <div class="ig-cell"><div class="ig-placeholder">✦</div></div>
+    <div class="ig-cell"><div class="ig-placeholder">🌿</div></div>
+    <div class="ig-cell"><div class="ig-placeholder">◎</div></div>
+  </div>
+  <a href="https://www.instagram.com/samarielstudio/" target="_blank" rel="noopener" class="ig-link" data-sk="@samarielstudio" data-en="@samarielstudio">@samarielstudio</a>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="kontakt">
+  <div class="reveal">
+    <p class="section-label" data-sk="Nájdete nás" data-en="Find us">Nájdete nás</p>
+    <h2 class="section-title" data-sk="<em>Kontakt</em>" data-en="<em>Contact</em>"><em>Kontakt</em></h2>
+    <div class="divider"></div>
+    <div class="contact-items">
+      <div class="contact-item">
+        <div class="contact-icon">📍</div>
+        <div>
+          <p class="contact-item-label" data-sk="Lokalita" data-en="Location">Lokalita</p>
+          <p class="contact-item-value">Veľké Úľany, Slovensko</p>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">✉</div>
+        <div>
+          <p class="contact-item-label">Email</p>
+          <p class="contact-item-value"><a href="mailto:info@samarielstudio.sk">info@samarielstudio.sk</a></p>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">◈</div>
+        <div>
+          <p class="contact-item-label">Instagram</p>
+          <p class="contact-item-value"><a href="https://www.instagram.com/samarielstudio/" target="_blank" rel="noopener">@samarielstudio</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="reveal">
+    <div class="map-placeholder">
+      <span style="font-size: 2rem; opacity: 0.3">🗺</span>
+      <span data-sk="Mapa — vložte Google Maps embed" data-en="Map — insert Google Maps embed">Mapa — vložte Google Maps embed</span>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Samariel Studio</div>
+  <ul class="footer-links">
+    <li><a href="#domov" data-sk="Domov" data-en="Home">Domov</a></li>
+    <li><a href="#o-nas" data-sk="O nás" data-en="About">O nás</a></li>
+    <li><a href="#sluzby" data-sk="Služby" data-en="Services">Služby</a></li>
+    <li><a href="#cennik" data-sk="Cenník" data-en="Pricing">Cenník</a></li>
+    <li><a href="#booking">Booking</a></li>
+    <li><a href="#kontakt" data-sk="Kontakt" data-en="Contact">Kontakt</a></li>
+  </ul>
+  <p class="footer-copy">© 2025 Samariel Studio. <span data-sk="Všetky práva vyhradené." data-en="All rights reserved.">Všetky práva vyhradené.</span></p>
+</footer>
+
+<script>
+// ─── NAVBAR SCROLL ───
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// ─── LANGUAGE TOGGLE ───
+let currentLang = 'sk';
+
+function toggleLang() {
+  currentLang = currentLang === 'sk' ? 'en' : 'sk';
+  document.getElementById('langToggle').textContent = currentLang === 'sk' ? 'EN' : 'SK';
+  
+  document.querySelectorAll('[data-sk]').forEach(el => {
+    const text = el.getAttribute(`data-${currentLang}`);
+    if (text) el.innerHTML = text;
+  });
+}
+
+// ─── SCROLL REVEAL ───
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => {
+        entry.target.classList.add('visible');
+      }, i * 80);
+    }
+  });
+}, { threshold: 0.1 });
+
+reveals.forEach(el => observer.observe(el));
+
+// ─── SLIDER ───
+let currentSlide = 0;
+const totalSlides = 2;
+
+function goToSlide(index) {
+  currentSlide = index;
+  document.getElementById('sliderTrack').style.transform = `translateX(-${index * 100}%)`;
+  document.querySelectorAll('.dot').forEach((dot, i) => {
+    dot.classList.toggle('active', i === index);
+  });
+}
+
+function nextSlide() {
+  goToSlide((currentSlide + 1) % totalSlides);
+}
+
+function prevSlide() {
+  goToSlide((currentSlide - 1 + totalSlides) % totalSlides);
+}
+
+// Auto slide
+setInterval(nextSlide, 6000);
+
+// ─── MOBILE MENU ───
+function openMobile() {
+  document.getElementById('mobileMenu').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeMobile() {
+  document.getElementById('mobileMenu').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// ─── SMOOTH SCROLL ───
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+});
+</script>
+</body>
+</html>
